@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import React, { useState } from 'react';
+import { Content } from './components/layout/Content';
+import { Header } from './components/layout/Header';
+import { ProjectsProvider, SelectedProjectProvider } from './components/context';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+export const App = ( {darkModeDefault = false} ) => {
+
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
+  return(
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <main
+          data-testid="application"
+          className = {darkMode ? 'darkmode' : undefined}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+          <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
+          <Content />
+          </main>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
+  )
+    
+};
 
-export default App;
